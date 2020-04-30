@@ -53,7 +53,12 @@ namespace wpf_demo_phonebook
             {
                 command.Connection = open();
                 command.CommandText = _query;
-                command.Parameters.AddRange(parameters);
+                if(parameters!=null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+                
+
                 command.ExecuteNonQuery();
                 DataAdapter.SelectCommand = command;
                 DataAdapter.Fill(ds);
@@ -96,7 +101,7 @@ namespace wpf_demo_phonebook
             return result;
         }
 
-        public int ExecutUpdateQuery(string _query, SqlParameter[] parameters)
+        public int ExecuteUpdateQuery(string _query, SqlParameter[] parameters)
         {
             SqlCommand command = new SqlCommand();
             int result = 0;

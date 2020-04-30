@@ -37,6 +37,17 @@ namespace wpf_demo_phonebook
             return conn.ExecuteSelectQuery(_query, parameters);
         }
 
+        public DataTable SearchAll()
+        {
+            string _query =
+                $"SELECT * " +
+                $"FROM [Contacts] ";
+
+            
+
+            return conn.ExecuteSelectQuery(_query, null);
+        }
+
         /// <summary>
         /// Méthode permettant de rechercher un contact par id
         /// </summary>

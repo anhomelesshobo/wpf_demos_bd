@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using wpf_demo_phonebook.ViewModels;
 
 namespace wpf_demo_phonebook
 {
@@ -20,10 +21,12 @@ namespace wpf_demo_phonebook
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        MainViewModel _vm;
         public MainWindow()
         {
             InitializeComponent();
+            _vm = new MainViewModel();
+            DataContext = _vm;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

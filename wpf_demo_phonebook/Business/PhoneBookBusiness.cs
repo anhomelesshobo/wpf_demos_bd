@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
 
@@ -28,6 +29,26 @@ namespace wpf_demo_phonebook
             return cm;
         }
 
+        public static ICollection<ContactModel> GetAll()
+        {
+            List<ContactModel> Results = null;
+
+            DataTable dt = new DataTable();
+
+            dt = dao.SearchAll();
+
+            if (dt != null)
+            {
+                Results = new List<ContactModel>();
+                foreach (DataRow row in dt.Rows)
+                {
+                    Results.Add(RowToContactModel(row));
+                }
+            }
+
+            return Results;
+        }
+
         public static ContactModel GetContactByID(int _id)
         {
             ContactModel cm = null;
@@ -46,6 +67,9 @@ namespace wpf_demo_phonebook
 
             return cm;
         }
+
+
+
 
         private static ContactModel RowToContactModel(DataRow row)
         {
