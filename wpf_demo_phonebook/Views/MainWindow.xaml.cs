@@ -22,6 +22,8 @@ namespace wpf_demo_phonebook
     public partial class MainWindow : Window
     {
         MainViewModel _vm;
+
+      
         public MainWindow()
         {
             InitializeComponent();
@@ -29,9 +31,5 @@ namespace wpf_demo_phonebook
             DataContext = _vm;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -48,6 +48,16 @@ namespace wpf_demo_phonebook
             return conn.ExecuteSelectQuery(_query, null);
         }
 
+
+        public DataTable UpdateTheContact()
+        {
+
+            string _query =
+                $"UPDATE Contact " +
+                $"SET FirstName = 'Alfred Schmidt', LastName= 'Frankfurt', Email= '', Phone='', Mobile='', " +
+                $"WHERE FirstName LIKE @firstName OR LastName LIKE @lastName ";
+        }
+
         /// <summary>
         /// Méthode permettant de rechercher un contact par id
         /// </summary>

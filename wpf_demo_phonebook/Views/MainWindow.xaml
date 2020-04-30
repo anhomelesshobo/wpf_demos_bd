@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:wpf_demo_phonebook"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="260" Width="800">
+        Title="MainWindow" MinHeight="200" Width="800">
     <DockPanel>
         <StackPanel DockPanel.Dock="Top" Grid.ColumnSpan="3">
             <Menu>
@@ -31,53 +31,56 @@
             <TextBox BorderBrush="Gray" x:Name="txtCriteria" HorizontalAlignment="Right" Margin="0,0,10,0" Width="150"/>
             <Button  Grid.Row="1" Background="LightGray" BorderBrush="Gray" Grid.Column="1" Content="Recherche" 
                     Command="{Binding SearchContactCommand}" 
-                    CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" Click="Button_Click" />
+                    CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
         </ToolBar>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="3.5*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+            
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
+                <TextBlock Grid.Row="0" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Prénom : "/>
+                <TextBlock Grid.Row="1" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Nom de famille : "/>
+                <TextBlock Grid.Row="2" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Email : "/>
+                <TextBlock Grid.Row="3" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Téléphone : "/>
+                <TextBlock Grid.Row="4" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Celluaire : "/>
+                <TextBlock Grid.Row="5" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Identifiant : "/>
 
+                <Button Grid.Column="2" Grid.Row="6" Content="Supprimer" Width="70" HorizontalAlignment="Right"></Button>
+                <Button Grid.Column="2" Grid.Row="6" Content="Enregistrer" Width="70" Margin="85,0,0,0" HorizontalAlignment="Center"></Button>
 
-            <ListView Grid.Row="2" Width="170" HorizontalAlignment="Left"  
+                <TextBox Grid.Row="0" Height="20" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
+                <TextBox Grid.Row="1" Height="20" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
+                <TextBox Grid.Row="2" Height="20" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
+                <TextBox Grid.Row="3" Height="20" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
+                <TextBox Grid.Row="4" Height="20" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
+                <TextBox Grid.Row="5" Height="20" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+            </Grid>
+
+            <ListView Grid.Row="2" Width="170" SelectedItem="{Binding SelectedContact}" x:Name="Listviewitems" HorizontalAlignment="Left"  
                       ItemsSource="{Binding Contacts}" 
                       Grid.RowSpan="7" Grid.ColumnSpan="2">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Info}"></TextBlock>
+                        <TextBlock  Text="{Binding Info}"></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
             </ListView>
-            <TextBlock Grid.Row="2" Height="25" Grid.Column="1" Text="Prénom : "/>
-            <TextBlock Grid.Row="3" Height="25" Grid.Column="1" Text="Nom de famille : "/>
-            <TextBlock Grid.Row="4" Height="25" Grid.Column="1" Text="Email : "/>
-            <TextBlock Grid.Row="5" Height="25" Grid.Column="1" Text="Téléphone : "/>
-            <TextBlock Grid.Row="6" Height="25" Grid.Column="1" Text="Celluaire : "/>
-            <TextBlock Grid.Row="7" Height="25" Grid.Column="1" Text="Identifiant : "/>
-
-            <Button Grid.Column="2" Grid.Row="8" Content="Supprimer" Width="70" HorizontalAlignment="Right"></Button>
-            <Button Grid.Column="2" Grid.Row="8" Content="Enregistrer" Width="70" Margin="85,0,0,0" HorizontalAlignment="Center"></Button>
-
-            <TextBox Grid.Row="2" Height="20" Grid.Column="2" Text="{Binding SelectedContact.FirstName}"/>
-            <TextBox Grid.Row="3" Height="20" Grid.Column="2" Text="{Binding SelectedContact.LastName}"/>
-            <TextBox Grid.Row="4" Height="20" Grid.Column="2" Text="{Binding SelectedContact.Email}"/>
-            <TextBox Grid.Row="5" Height="20" Grid.Column="2" Text="{Binding SelectedContact.Phone}"/>
-            <TextBox Grid.Row="6" Height="20" Grid.Column="2" Text="{Binding SelectedContact.Mobile}"/>
-            <TextBox Grid.Row="7" Height="20" Grid.Column="2" Text="{Binding SelectedContact.ContactID}"/>
         </Grid>
     </DockPanel>
 </Window>

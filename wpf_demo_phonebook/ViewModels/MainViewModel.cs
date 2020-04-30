@@ -55,6 +55,7 @@ namespace wpf_demo_phonebook.ViewModels
             
         }
 
+
         private void SearchContact(object parameter)
         {
             string input = parameter as string;
