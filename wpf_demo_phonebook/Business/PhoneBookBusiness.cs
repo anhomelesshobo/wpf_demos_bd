@@ -49,6 +49,24 @@ namespace wpf_demo_phonebook
             return Results;
         }
 
+
+        public static ContactModel SupprimerTheCurrentContact(ContactModel parameter)
+        {
+            dao.DeleteTheContact(parameter.ContactID);
+            
+            return null;
+        }
+
+
+            
+
+        public static ContactModel UpdateTheCurrentContact(ContactModel parameter)
+        { 
+            dao.UpdateTheContact(parameter.FirstName, parameter.LastName, parameter.Email, parameter.Phone, parameter.Mobile , parameter.ContactID);
+
+            return null;
+        }
+
         public static ContactModel GetContactByID(int _id)
         {
             ContactModel cm = null;

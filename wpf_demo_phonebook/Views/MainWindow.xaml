@@ -25,7 +25,7 @@
             </Menu>
         </StackPanel>
         <ToolBar BorderBrush="AliceBlue" Grid.ColumnSpan="3" Grid.Row="1" DockPanel.Dock="Top">
-            <Button Content="+Contact"></Button>
+            <Button Content="+Contact" Click="NewCustomer"></Button>
             <Separator/>
             <TextBlock Height="15" Text="Recherche : "/>
             <TextBox BorderBrush="Gray" x:Name="txtCriteria" HorizontalAlignment="Right" Margin="0,0,10,0" Width="150"/>
@@ -35,11 +35,12 @@
         </ToolBar>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="89*"/>
+                <ColumnDefinition Width="68*"/>
+                <ColumnDefinition Width="243*"/>
             </Grid.ColumnDefinitions>
-            
-            <Grid Grid.Column="1">
+
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -61,8 +62,8 @@
                 <TextBlock Grid.Row="4" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Celluaire : "/>
                 <TextBlock Grid.Row="5" Height="25" Grid.Column="0" HorizontalAlignment="Left" Text="Identifiant : "/>
 
-                <Button Grid.Column="2" Grid.Row="6" Content="Supprimer" Width="70" HorizontalAlignment="Right"></Button>
-                <Button Grid.Column="2" Grid.Row="6" Content="Enregistrer" Width="70" Margin="85,0,0,0" HorizontalAlignment="Center"></Button>
+                <Button Grid.Column="2" Grid.Row="6" Content="Supprimer" Click="SupprimeButton" Width="70" HorizontalAlignment="Right"></Button>
+                <Button Grid.Column="2" Grid.Row="6" Content="Enregistrer" Click="UpdateButton" Command="{Binding UpdateContact}"  Width="70" Margin="85,0,0,0" HorizontalAlignment="Center"></Button>
 
                 <TextBox Grid.Row="0" Height="20" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
                 <TextBox Grid.Row="1" Height="20" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
@@ -72,12 +73,11 @@
                 <TextBox Grid.Row="5" Height="20" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
             </Grid>
 
-            <ListView Grid.Row="2" Width="170" SelectedItem="{Binding SelectedContact}" x:Name="Listviewitems" HorizontalAlignment="Left"  
-                      ItemsSource="{Binding Contacts}" 
-                      Grid.RowSpan="7" Grid.ColumnSpan="2">
+            <ListView Width="170" SelectedItem="{Binding SelectedContact}" x:Name="Listviewitems" HorizontalAlignment="Left"  
+                      ItemsSource="{Binding Contacts}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock  Text="{Binding Info}"></TextBlock>
+                        <TextBlock x:Name="ContactName"  Text="{Binding Info}"></TextBlock>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

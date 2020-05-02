@@ -49,13 +49,45 @@ namespace wpf_demo_phonebook
         }
 
 
-        public DataTable UpdateTheContact()
+        public DataTable DeleteTheContact(int _id)
+        {
+            string _query = 
+                $"DELETE " +
+                $"FROM Contacts " +
+                $"WHERE ContactID LIKE '" + _id + "'";
+
+            
+
+            return conn.ExecuteSelectQuery(_query,null);
+
+
+        }
+
+        public DataTable UpdateTheContact(string _Firstname, string _Lastname, string _Email, string _Phone, string _Mobile,int _id)
         {
 
             string _query =
-                $"UPDATE Contact " +
-                $"SET FirstName = 'Alfred Schmidt', LastName= 'Frankfurt', Email= '', Phone='', Mobile='', " +
-                $"WHERE FirstName LIKE @firstName OR LastName LIKE @lastName ";
+                $"UPDATE Contacts " +
+                $"SET FirstName = '" + _Firstname.ToString() + "', LastName= '" + _Lastname.ToString() + "', Email= '" + _Email.ToString() + "', Phone= '" + _Phone.ToString() + "', Mobile= '" + _Mobile.ToString() + "'" +
+                $"WHERE ContactID LIKE '" + _id + "'";
+
+            SqlParameter[] parameters = new SqlParameter[5];
+            parameters[0] = new SqlParameter("@_Firstname", SqlDbType.NVarChar);
+            parameters[0].Value = _Firstname;
+
+            parameters[1] = new SqlParameter("@_Lastname", SqlDbType.NVarChar);
+            parameters[1].Value = _Lastname;
+
+            parameters[2] = new SqlParameter("@_Email", SqlDbType.NVarChar);
+            parameters[2].Value = _Email;
+
+            parameters[3] = new SqlParameter("@_Phone", SqlDbType.NVarChar);
+            parameters[3].Value = _Phone;
+
+            parameters[4] = new SqlParameter("@_Mobile", SqlDbType.NVarChar);
+            parameters[4].Value = _Mobile;
+
+            return conn.ExecuteSelectQuery(_query, parameters);
         }
 
         /// <summary>

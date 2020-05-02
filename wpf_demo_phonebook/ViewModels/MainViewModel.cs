@@ -13,7 +13,7 @@ namespace wpf_demo_phonebook.ViewModels
 
         private ObservableCollection<ContactModel> contacts;
 
-
+        private int selectednumber =1;
         public ObservableCollection<ContactModel> Contacts
         {
             get => contacts;
@@ -23,6 +23,7 @@ namespace wpf_demo_phonebook.ViewModels
                 OnPropertyChanged();
             }
         }
+
         public ContactModel SelectedContact
         {
             get => selectedContact;
@@ -31,7 +32,6 @@ namespace wpf_demo_phonebook.ViewModels
                 OnPropertyChanged();
             }
         }
-
 
 
         private string criteria;
@@ -47,14 +47,19 @@ namespace wpf_demo_phonebook.ViewModels
 
         public RelayCommand SearchContactCommand { get; set; }
 
+       
+
         public MainViewModel()
         {
             SearchContactCommand = new RelayCommand(SearchContact);
             Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAll());
-            SelectedContact = PhoneBookBusiness.GetContactByID(1);
+            while(PhoneBookBusiness.GetContactByID(selectednumber) == null)
+            {               
+                selectednumber++;
+            }
+            SelectedContact = PhoneBookBusiness.GetContactByID(selectednumber);
             
         }
-
 
         private void SearchContact(object parameter)
         {
