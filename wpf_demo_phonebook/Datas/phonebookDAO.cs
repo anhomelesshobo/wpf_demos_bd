@@ -48,37 +48,13 @@ namespace wpf_demo_phonebook
             return conn.ExecuteSelectQuery(_query, null);
         }
 
-        public int InsertTheContact(string _Firstname, string _Lastname, string _Email, string _Phone, string _Mobile, int _id)
+        public int InsertTheContact(ContactModel cm)
         {
+            string _query = $"INSERT INTO [Contacts] (FirstName, LastName, Email, Phone, Mobile) " +
+                                        $"OUTPUT INSERTED.ContactID " +
+                                        $"VALUES ('{cm.FirstName}','{cm.LastName}','{cm.Email}','{cm.Phone}','{cm.Mobile}')";
 
-            string _query =
-                $"INSERT " +
-                $"INTO [Contacts] " +
-                $"(FirstName, LastName, Email, Phone, Mobile, ContactID) " +
-                $"VALUES " +
-                $"(@Firstname, @Lastname, @Email, @Phone, @Mobile, @id)";
-
-
-            SqlParameter[] parameters = new SqlParameter[6];
-            parameters[0] = new SqlParameter("@Firstname", SqlDbType.NVarChar);
-            parameters[0].Value = _Firstname;
-
-            parameters[1] = new SqlParameter("@Lastname", SqlDbType.NVarChar);
-            parameters[1].Value = _Lastname;
-
-            parameters[2] = new SqlParameter("@Email", SqlDbType.NVarChar);
-            parameters[2].Value = _Email;
-
-            parameters[3] = new SqlParameter("@Phone", SqlDbType.NVarChar);
-            parameters[3].Value = _Phone;
-
-            parameters[4] = new SqlParameter("@Mobile", SqlDbType.NVarChar);
-            parameters[4].Value = _Mobile;
-
-            parameters[5] = new SqlParameter("@id", SqlDbType.Int);
-            parameters[5].Value = _id;
-
-            return conn.ExecutInsertQuery(_query, parameters);
+            return conn.ExecutInsertQuery(_query, null);
 
         }
 

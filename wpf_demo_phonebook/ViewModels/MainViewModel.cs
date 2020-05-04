@@ -128,7 +128,7 @@ namespace wpf_demo_phonebook.ViewModels
             {
 
                 int generatedNewId = PhoneBookBusiness.InsertNewContact(selectedContact);
-
+                generatedNewId++;
                 SelectedContact.ContactID = generatedNewId;
                 Contacts.Add(SelectedContact);
 

@@ -58,7 +58,7 @@ namespace wpf_demo_phonebook
 
         public static int InsertNewContact(ContactModel parameter)
         {
-            dao.InsertTheContact(parameter.FirstName, parameter.LastName, parameter.Email, parameter.Phone, parameter.Mobile, parameter.ContactID);
+            dao.InsertTheContact(parameter);
 
             int add;
             
