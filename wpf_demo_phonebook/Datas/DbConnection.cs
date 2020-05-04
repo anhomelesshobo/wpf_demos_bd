@@ -42,8 +42,39 @@ namespace wpf_demo_phonebook
             Console.WriteLine(msg);
             Debug.WriteLine (msg);
         }
-
         public DataTable ExecuteSelectQuery(string _query, SqlParameter[] parameters)
+        {
+            SqlCommand command = new SqlCommand();
+            DataTable dataTable = null;
+            DataSet ds = new DataSet();
+
+            try
+            {
+                command.Connection = open();
+                command.CommandText = _query;
+                if(parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+                command.ExecuteNonQuery();
+                DataAdapter.SelectCommand = command;
+                DataAdapter.Fill(ds);
+                dataTable = ds.Tables[0];
+
+            }
+            catch (Exception ex)
+            {
+                writeError($"Requête : {_query} \nSqlException : {ex.StackTrace.ToString()}");
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return dataTable;
+        }
+
+        public DataTable ExecuteUpdateQuery(string _query, SqlParameter[] parameters)
         {
             SqlCommand command = new SqlCommand();
             DataTable dataTable = null;
@@ -75,6 +106,36 @@ namespace wpf_demo_phonebook
             return dataTable;
         }
 
+        public int ExecutUpdateQuery(string _query, SqlParameter[] parameters)
+        {
+            SqlCommand command = new SqlCommand();
+            int result = 0;
+
+            try
+            {
+                command.Connection = open();
+                command.CommandText = _query;
+
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+
+                DataAdapter.UpdateCommand = command;
+                result = command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                writeError($"Requête : {_query} \nSqlException : {ex.StackTrace.ToString()}");
+            }
+            finally
+            {
+                Connection.Close();
+            }
+
+            return result;
+        }
+
         public int ExecutInsertQuery(string _query, SqlParameter[] parameters)
         {
             SqlCommand command = new SqlCommand();
@@ -100,29 +161,6 @@ namespace wpf_demo_phonebook
             return result;
         }
 
-        public int ExecuteUpdateQuery(string _query, SqlParameter[] parameters)
-        {
-            SqlCommand command = new SqlCommand();
-            int result = 0;
-
-            try
-            {
-                command.Connection = open();
-                command.CommandText = _query;
-                command.Parameters.AddRange(parameters);
-                DataAdapter.UpdateCommand = command;
-                result = command.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                writeError($"Requête : {_query} \nSqlException : {ex.StackTrace.ToString()}");
-            }
-            finally
-            {
-                Connection.Close();
-            }
-
-            return result;
-        }
+        
     }
 }

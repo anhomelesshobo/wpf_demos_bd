@@ -34,7 +34,7 @@ namespace wpf_demo_phonebook
             parameters[1] = new SqlParameter("@lastName", SqlDbType.NVarChar);
             parameters[1].Value = _name;
 
-            return conn.ExecuteSelectQuery(_query, parameters);
+            return conn.ExecuteUpdateQuery(_query, parameters);
         }
 
         public DataTable SearchAll()
@@ -43,13 +43,46 @@ namespace wpf_demo_phonebook
                 $"SELECT * " +
                 $"FROM [Contacts] ";
 
-            
+
 
             return conn.ExecuteSelectQuery(_query, null);
         }
 
+        public int InsertTheContact(string _Firstname, string _Lastname, string _Email, string _Phone, string _Mobile, int _id)
+        {
 
-        public DataTable DeleteTheContact(int _id)
+            string _query =
+                $"INSERT " +
+                $"INTO [Contacts] " +
+                $"(FirstName, LastName, Email, Phone, Mobile, ContactID) " +
+                $"VALUES " +
+                $"(@Firstname, @Lastname, @Email, @Phone, @Mobile, @id)";
+
+
+            SqlParameter[] parameters = new SqlParameter[6];
+            parameters[0] = new SqlParameter("@Firstname", SqlDbType.NVarChar);
+            parameters[0].Value = _Firstname;
+
+            parameters[1] = new SqlParameter("@Lastname", SqlDbType.NVarChar);
+            parameters[1].Value = _Lastname;
+
+            parameters[2] = new SqlParameter("@Email", SqlDbType.NVarChar);
+            parameters[2].Value = _Email;
+
+            parameters[3] = new SqlParameter("@Phone", SqlDbType.NVarChar);
+            parameters[3].Value = _Phone;
+
+            parameters[4] = new SqlParameter("@Mobile", SqlDbType.NVarChar);
+            parameters[4].Value = _Mobile;
+
+            parameters[5] = new SqlParameter("@id", SqlDbType.Int);
+            parameters[5].Value = _id;
+
+            return conn.ExecutInsertQuery(_query, parameters);
+
+        }
+
+        public int DeleteTheContact(int _id)
         {
             string _query = 
                 $"DELETE " +
@@ -58,36 +91,39 @@ namespace wpf_demo_phonebook
 
             
 
-            return conn.ExecuteSelectQuery(_query,null);
+            return conn.ExecutUpdateQuery(_query,null);
 
 
         }
 
-        public DataTable UpdateTheContact(string _Firstname, string _Lastname, string _Email, string _Phone, string _Mobile,int _id)
+        public int UpdateContact(string _Firstname, string _Lastname, string _Email, string _Phone, string _Mobile,int id)
         {
 
             string _query =
-                $"UPDATE Contacts " +
-                $"SET FirstName = '" + _Firstname.ToString() + "', LastName= '" + _Lastname.ToString() + "', Email= '" + _Email.ToString() + "', Phone= '" + _Phone.ToString() + "', Mobile= '" + _Mobile.ToString() + "'" +
-                $"WHERE ContactID LIKE '" + _id + "'";
+                $"UPDATE [Contacts] " +
+                $"SET FirstName = @Firstname , LastName = @Lastname , Email = @Email , Phone = @Phone , Mobile = @Mobile " +
+                $"WHERE ContactID = @id";
 
-            SqlParameter[] parameters = new SqlParameter[5];
-            parameters[0] = new SqlParameter("@_Firstname", SqlDbType.NVarChar);
+            SqlParameter[] parameters = new SqlParameter[6];
+            parameters[0] = new SqlParameter("@Firstname", SqlDbType.NVarChar);
             parameters[0].Value = _Firstname;
 
-            parameters[1] = new SqlParameter("@_Lastname", SqlDbType.NVarChar);
+            parameters[1] = new SqlParameter("@Lastname", SqlDbType.NVarChar);
             parameters[1].Value = _Lastname;
 
-            parameters[2] = new SqlParameter("@_Email", SqlDbType.NVarChar);
+            parameters[2] = new SqlParameter("@Email", SqlDbType.NVarChar);
             parameters[2].Value = _Email;
 
-            parameters[3] = new SqlParameter("@_Phone", SqlDbType.NVarChar);
+            parameters[3] = new SqlParameter("@Phone", SqlDbType.NVarChar);
             parameters[3].Value = _Phone;
 
-            parameters[4] = new SqlParameter("@_Mobile", SqlDbType.NVarChar);
+            parameters[4] = new SqlParameter("@Mobile", SqlDbType.NVarChar);
             parameters[4].Value = _Mobile;
 
-            return conn.ExecuteSelectQuery(_query, parameters);
+            parameters[5] = new SqlParameter("@id", SqlDbType.Int);
+            parameters[5].Value = id;
+
+            return conn.ExecutUpdateQuery(_query, parameters);
         }
 
         /// <summary>
@@ -106,7 +142,15 @@ namespace wpf_demo_phonebook
             parameters[0] = new SqlParameter("@_id", SqlDbType.Int);
             parameters[0].Value = _id;
 
-            return conn.ExecuteSelectQuery(_query, parameters);
+            return conn.ExecuteUpdateQuery(_query, parameters);
+        }
+
+        public int LastID()
+        {
+            string _query = $"SELECT max(ContactID) " +
+                            $"FROM [Contacts] ";
+
+            return conn.ExecuteSelectQuery(_query, null).Rows[0].Field<int>(0);
         }
     }
 }

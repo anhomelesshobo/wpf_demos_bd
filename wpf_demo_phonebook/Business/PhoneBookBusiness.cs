@@ -50,21 +50,28 @@ namespace wpf_demo_phonebook
         }
 
 
-        public static ContactModel SupprimerTheCurrentContact(ContactModel parameter)
+        public static void SupprimerTheCurrentContact(ContactModel parameter)
         {
             dao.DeleteTheContact(parameter.ContactID);
             
-            return null;
         }
 
+        public static int InsertNewContact(ContactModel parameter)
+        {
+            dao.InsertTheContact(parameter.FirstName, parameter.LastName, parameter.Email, parameter.Phone, parameter.Mobile, parameter.ContactID);
 
+            int add;
+            
+            add = dao.LastID();
+
+            return add;
+
+        }
             
 
-        public static ContactModel UpdateTheCurrentContact(ContactModel parameter)
+        public static void UpdateTheCurrentContact(ContactModel parameter)
         { 
-            dao.UpdateTheContact(parameter.FirstName, parameter.LastName, parameter.Email, parameter.Phone, parameter.Mobile , parameter.ContactID);
-
-            return null;
+            dao.UpdateContact(parameter.FirstName, parameter.LastName, parameter.Email, parameter.Phone, parameter.Mobile , parameter.ContactID);
         }
 
         public static ContactModel GetContactByID(int _id)

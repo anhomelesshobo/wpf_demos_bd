@@ -14,7 +14,7 @@ namespace wpf_demo_phonebook
     /// </summary>
     public partial class App : Application
     {
-        MainWindow _wnd;
+        public MainWindow _wnd;
 
         public App()
         {

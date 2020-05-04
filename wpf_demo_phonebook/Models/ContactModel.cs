@@ -7,23 +7,87 @@ namespace wpf_demo_phonebook
 {
     public class ContactModel : BaseViewModel
     {
-       
-        public int ContactID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Mobile { get; set; }
+        private string firstName;
 
-        public string Info 
+        private string lastName;
+        private string email;
+        private string phone;
+        private string mobile;
+
+
+
+        public int ContactID { get; set; }
+        public string FirstName
         {
-            get { return $"{LastName}, {FirstName}"; }
-                set {
-                    LastName = value;
-                    FirstName = value;
-                    OnPropertyChanged();
-                }
-         }
+            get
+            { 
+                return firstName;
+            }
+            set
+            {
+                firstName = value;
+                OnPropertyChanged();
+            }
+        }
+        public string LastName
+        {
+            get
+            {
+                return lastName;
+            }
+            set
+            {
+                lastName = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Phone
+        {
+            get
+            {
+                return phone;
+            }
+            set
+            {
+                phone = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Mobile
+        {
+            get
+            {
+                return mobile;
+            }
+            set
+            {
+                mobile = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Info
+        {
+            get { return $"{lastName}, {firstName}"; }
+            set
+            {
+                lastName = value;
+                firstName = value;
+                OnPropertyChanged();
+            }
+        }
         public override string ToString()
         {
             return Info;
